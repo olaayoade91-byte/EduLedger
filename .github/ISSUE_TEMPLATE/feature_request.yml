@@ -1,0 +1,43 @@
+name: Feature Request
+description: Suggest an improvement or a new feature for EduLedger.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve EduLedger! Tell us what you think would make the project better.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Is your feature request related to a problem?
+      description: Explain the problem or limitation you're experiencing.
+      placeholder: I'm having difficulty when...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Describe the solution you'd like
+      description: Explain how you think the feature should work.
+      placeholder: I would like EduLedger to...
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Describe any alternative solutions you've considered.
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
+      description: Add any screenshots, examples, or other useful details.
+    validations:
+      required: false

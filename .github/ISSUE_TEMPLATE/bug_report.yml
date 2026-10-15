@@ -1,0 +1,46 @@
+name: Bug Report
+description: Report a problem or unexpected behaviour in EduLedger.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve EduLedger! Please provide as much detail as possible.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      description: Explain clearly what went wrong.
+      placeholder: Tell us what happened.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: How can we reproduce the problem?
+      placeholder: |
+        1. Open ...
+        2. Click ...
+        3. Observe the error.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+      description: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots or error messages
+      description: Add screenshots or relevant error messages, if available.
+    validations:
+      required: false
