@@ -34,7 +34,36 @@ function App() {
   }
 
   useEffect(() => {
-    loadSchools();
+    let cancelled = false;
+
+    fetch(`${API_URL}/schools`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to load schools.");
+        }
+
+        return response.json();
+      })
+      .then((data) => {
+        if (!cancelled) {
+          setSchools(data.schools);
+          setError("");
+        }
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setError("Unable to connect to the server.");
+        }
+      })
+      .finally(() => {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   async function handleSubmit(event) {
@@ -153,6 +182,7 @@ function App() {
             <div className="help-icon">✦</div>
             <h4>Need a hand?</h4>
             <p>We're here to help you manage your school finances.</p>
+
             <button
               onClick={() =>
                 setMessage("Support resources will be available soon.")
@@ -164,10 +194,12 @@ function App() {
 
           <div className="sidebar-footer">
             <div className="footer-avatar">E</div>
+
             <div>
               <strong>EduLedger</strong>
               <small>Management portal</small>
             </div>
+
             <span className="footer-menu">•••</span>
           </div>
         </div>
@@ -184,12 +216,14 @@ function App() {
           <div className="topbar-right">
             <label className="search-box">
               <span>⌕</span>
+
               <input
                 type="search"
                 placeholder="Search schools..."
                 value={search}
                 onChange={(event) => setSearch(event.target.value)}
               />
+
               <kbd>/</kbd>
             </label>
 
@@ -208,10 +242,12 @@ function App() {
 
             <div className="admin-profile">
               <div className="admin-avatar">A</div>
+
               <div className="admin-details">
                 <strong>Administrator</strong>
                 <span>Workspace admin</span>
               </div>
+
               <span className="profile-chevron">⌄</span>
             </div>
           </div>
@@ -262,6 +298,7 @@ function App() {
                 <div className="art-logo">E</div>
                 <div className="art-card-title">EDULEDGER</div>
                 <div className="art-card-subtitle">SCHOOL MANAGEMENT</div>
+
                 <div className="art-card-bottom">
                   <span>EDUCATION</span>
                   <span>✳</span>
@@ -345,6 +382,7 @@ function App() {
               <form className="registration-form" onSubmit={handleSubmit}>
                 <div className="form-field">
                   <label htmlFor="schoolName">School name</label>
+
                   <input
                     id="schoolName"
                     type="text"
@@ -358,6 +396,7 @@ function App() {
 
                 <div className="form-field">
                   <label htmlFor="schoolEmail">Official email address</label>
+
                   <input
                     id="schoolEmail"
                     type="email"
@@ -367,6 +406,7 @@ function App() {
                     maxLength={254}
                     required
                   />
+
                   <small>Use a unique email address for each school.</small>
                 </div>
 
@@ -416,6 +456,7 @@ function App() {
                 <div className="overview-legend">
                   <div className="legend-row">
                     <span className="legend-dot registered-dot" />
+
                     <div>
                       <strong>Registered institutions</strong>
                       <small>Saved in your workspace</small>
@@ -424,6 +465,7 @@ function App() {
 
                   <div className="legend-row">
                     <span className="legend-dot pending-dot" />
+
                     <div>
                       <strong>Payment management</strong>
                       <small>Coming in a future step</small>
@@ -434,6 +476,7 @@ function App() {
 
               <div className="overview-footer">
                 <span className="overview-footer-icon">✦</span>
+
                 <div>
                   <strong>Built for better school management</strong>
                   <p>More tools will become available as we build EduLedger.</p>
@@ -543,6 +586,7 @@ function App() {
                 Showing {loading ? 0 : filteredSchools.length} of{" "}
                 {schools.length} institutions
               </span>
+
               <span className="table-footer-note">
                 <span className="live-dot" />
                 Synced with database
